@@ -218,35 +218,18 @@
                     const imagesDiv = document.createElement('div');
                     imagesDiv.className = 'product-images';
 
-                    fullPaths.forEach((src, index) => {
-                        const imgElement = document.createElement('img');
-                        imgElement.src = src;
-                        imgElement.alt = productName;
-                        imgElement.loading = 'lazy';
-                        if (index === 0) imgElement.classList.add('active');
-                        imagesDiv.appendChild(imgElement);
-                    });
+                    const imgElement = document.createElement('img');
+                    imgElement.src = fullPaths[0];
+                    imgElement.alt = productName;
+                    imgElement.loading = 'lazy';
+                    imgElement.classList.add('active');
+                    imagesDiv.appendChild(imgElement);
 
                     if (fullPaths.length > 1) {
                         const hint = document.createElement('div');
                         hint.className = 'click-hint';
                         hint.textContent = fullPaths.length;
                         imagesDiv.appendChild(hint);
-
-                        const navDiv = document.createElement('div');
-                        navDiv.className = 'image-nav';
-                        fullPaths.forEach((_, index) => {
-                            const dot = document.createElement('span');
-                            if (index === 0) dot.classList.add('active');
-                            navDiv.appendChild(dot);
-                        });
-                        imagesDiv.appendChild(navDiv);
-
-                        let ci = 0;
-                        setInterval(() => {
-                            ci = (ci + 1) % fullPaths.length;
-                            showCardImage(imagesDiv, ci);
-                        }, 4000);
                     }
 
                     productCard.appendChild(imagesDiv);
@@ -264,15 +247,6 @@
             });
 
             stats.innerHTML = '<span>' + Object.keys(galleryData).length + ' หมวดหมู่</span><span>' + totalProducts + ' สินค้า</span><span>' + totalImages + ' รูปภาพ</span>';
-        }
-
-        function showCardImage(container, index) {
-            const images = container.querySelectorAll('img[alt]');
-            const dots = container.querySelectorAll('.image-nav span');
-            images.forEach(img => img.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            images[index].classList.add('active');
-            if (dots[index]) dots[index].classList.add('active');
         }
 
         // ---- Lightbox ----
